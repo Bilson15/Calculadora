@@ -15,10 +15,9 @@ const initialState = {
   operation: null,
   values: [0, 0],
   current: 0,
+  displaySelect: '0'
 
 }
-
-
 
 export default class App extends Component{
 
@@ -52,9 +51,12 @@ export default class App extends Component{
   }
 
   setOperation = operation => {
+    
+    
     if (this.state.current === 0) {
       this.setState({ operation, current: 1, clearDisplay: true});
     }else{
+      this.setState({displaySelect: this.selectorOperation()});
       const equals = operation === '=';
       const values = [...this.state.values];
       try{
@@ -68,8 +70,30 @@ export default class App extends Component{
         operation: equals ? null : operation,
         current: equals ? 0 : 1,
         clearDisplay: true,
-        values, 
-      })
+        values,
+      })   
+
+    }
+    
+
+  }
+
+  selectorOperation = () => {
+    
+    if(this.state.operation === '/'){
+      return '1';
+    }
+    if(this.state.operation === '*'){
+      return '2';
+    }
+    if(this.state.operation === '-'){
+      return '3';  
+    }
+    if(this.state.operation === '+'){
+      return '4';   
+    }
+    if(this.state.operation === '='){
+      return '5';
     }
   }
 
@@ -78,11 +102,11 @@ export default class App extends Component{
     return(
       <View style={styles.container}>
           <View style={styles.buttons2}>
-            <ButtonOperacao label='/'/>
-            <ButtonOperacao label='*'/>
-            <ButtonOperacao label='-'/>
-            <ButtonOperacao label='+'/>
-            <ButtonOperacao label='='/>
+            <ButtonOperacao label='/' operation={(this.state.displaySelect === '1' ? true : false)}/>
+            <ButtonOperacao label='*' operation={(this.state.displaySelect === '2' ? true : false)}/>
+            <ButtonOperacao label='-' operation={(this.state.displaySelect === '3' ? true : false)}/>
+            <ButtonOperacao label='+' operation={(this.state.displaySelect === '4' ? true : false)}/>
+            <ButtonOperacao label='=' operation={(this.state.displaySelect === '5' ? true : false)}/>
             <Display value={this.state.displayValue} />
           </View>
           

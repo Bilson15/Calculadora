@@ -7,10 +7,14 @@ import {
 } from 'react-native';
 
 
-
 export default props => {
+    const stylesButton = [styles.button];
+
+    if(props.operation) {
+        stylesButton.push(styles.divisao1);
+    }
     return (
-        <Text style={styles.button}>
+        <Text style={stylesButton}>
             {props.label}
         </Text>
 
@@ -29,6 +33,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderWidth: 1,
         borderColor: '#888',
+    },
+    divisao1: {
+        color: '#000',
+        backgroundColor: '#f0f0f0',
     }
   
 
